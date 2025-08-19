@@ -69,7 +69,7 @@ h1, h2, h3 {
     display: block;
     text-decoration: none;
     color: #F6F6F6;
-    padding: 22px 65px;
+    padding: 3vh 8vh;
     border-top-right-radius: 45px;
     border-bottom-right-radius: 45px;
     font-size: 24px;
@@ -358,6 +358,7 @@ h1, h2, h3 {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    max-width: 300px;
 }
 #next-step-btn { background: linear-gradient(180deg, #AB99E3 10.1%, #7963C3 49.52%, #927ED3 90.38%); } 
 #next-step-btn:hover, #download-video-btn:hover,#download-btn:hover ,#clear-btn:hover{ background: linear-gradient(180deg, #2D2B4D 10.1%, #7963C3 49.52%, #2D2B4D 90.38%); }
