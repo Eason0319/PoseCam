@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/takePhoto.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="upper-btn">
+        <button class="btn-1 selected">拍照</button>
+        <button class="btn-1">上傳相片</button>
+    </div>
+    <div id="selected-text"></div>
+
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-button">主頁</a></li>
+                <li><a href="mainPage.html" class="nav-button active">設計廊</a></li>
+                <li><a href="#" class="nav-button">教學流程</a></li>
+                <li><a href="#" class="nav-button">意見回饋</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="camera-section">
+        <div id="photo-slot" style="display: none;">
+            <div id="photo-gallery" style="display: none;"></div>
+        </div>
+
+        <div id="selected-text"></div>
+
+        <div class="camera-container" id="cameraContainer">
+            <video id="video" autoplay playsinline></video>
+
+            <div id="countdown-overlay"></div>
+
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div id="flash-overlay"></div>
+        </div>
+        <div class="">
+            <h3 id="title1">拍攝倒數秒數：
+                <select id="countdown-select">
+                    <option value="3" selected>3 秒</option>
+                    <option value="5">5 秒</option>
+                    <option value="10">10 秒</option>
+                </select>
+            </h3>
+        </div>
+    </div>
+
+    <div class="wizard-container">
+
+        <div id="wizard-step-1" class="wizard-step">
+            <div class="setting-group">
+                <h2>選擇相機濾鏡</h2>
+                <div id="filter-selector">
+                    <button class="filter-option selected" data-filter="none" onclick="selectFilter(this)">原圖</button>
+                    <button class="filter-option" data-filter="grayscale" onclick="selectFilter(this)">黑白</button>
+                    <button class="filter-option" data-filter="sepia" onclick="selectFilter(this)">復古</button>
+                    <button class="filter-option" data-filter="saturate" onclick="selectFilter(this)">鮮豔</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="wizard-step-2" class="wizard-step hidden">
+
+            <div class="setting-group">
+                <h2>拍攝人數</h2>
+                <div id="people-selector">
+                    <button class="people-option selected" data-person="1" onclick="selectPeople(this)">1 人</button>
+                    <button class="people-option" data-person="2" onclick="selectPeople(this)">2 人</button>
+                    <button class="people-option" data-person="3" onclick="selectPeople(this)">3 人</button>
+                    <button class="people-option" data-person="4" onclick="selectPeople(this)">4 人</button>
+                    <button class="people-option" data-person="5" onclick="selectPeople(this)">5 人</button>
+                </div>
+            </div>
+        </div>
+        <div id="suggest-pose" class="wizard-step hidden">
+            <h2>動作推薦</h2>
+            <img src="./img/pose-1.jpg" class="pose-img">
+        </div>
+
+        <div id="wizard-step-final" class="wizard-step hidden">
+            <div id="image-slider">
+                <img src="./img/frame1.png" alt="背景1" class="slider-img" />
+                <img src="./img/frame2.png" alt="背景2" class="slider-img" />
+                <img src="./img/frame3.png" alt="背景3" class="slider-img" />
+            </div>
+        </div>
+
+        <div id="wizard-step-download" class="wizard-step hidden">
+            <h1>下載</h1>
+            <div id="qrcode"></div>
+            <button id="download-btn" style="margin-top: 10px;">下載成果</button>
+            <div id="video-preview" style="display:none; margin-top:10px;">
+                <video id="recorded-video" controls
+                    style="max-width:100%; border:1px solid #ccc; margin-top: 30px;"></video>
+            </div>
+            <button id="download-video-btn">下載影片</button>
+        </div>
+
+    </div>
+    <div class="controls">
+        <button id="next-step-btn">下一步</button>
+        <div id="final-buttons" class="hidden">
+            <button id="clear-btn">全部重拍</button>
+        </div>
+    </div>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="./js/script.js"></script>
+
+</body>
+
+</html>
