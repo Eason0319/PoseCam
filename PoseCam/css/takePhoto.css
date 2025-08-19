@@ -1,0 +1,366 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(166.43deg, #EEFCFF 4.12%, #B8CEFF 30.44%, #B7B8FB 57.08%, #836DC9 91.4%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #333;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    color: #2D2B4D;
+}
+
+.upper-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-1{
+    margin: 0 50px;
+    padding: 14px 80px;
+    font-size: 20px;
+    color: white;
+    background: linear-gradient(180deg, #AB99E3 10.1%, #7963C3 49.52%, #927ED3 90.38%);
+    border: 0;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+.btn-1.selected{
+    background: linear-gradient(180deg, #2D2B4D 10.1%, #756C92 49.52%, #2D2B4D 90.38%);
+}
+.main-container {
+    display: flex;
+    flex-wrap: wrap; /* 在小螢幕時換行 */
+    gap: 20px;
+    width: 100%;
+    max-width: 1280px;
+    align-items: flex-start; 
+    justify-content: flex-end;
+    
+}
+
+.sidebar {
+    position: fixed; /* 固定在視窗上 */
+    left: 0;
+    top: 50%; /* 垂直置中 */
+    
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+}
+
+.nav-button {
+    display: block;
+    text-decoration: none;
+    color: #F6F6F6;
+    padding: 22px 65px;
+    border-top-right-radius: 45px;
+    border-bottom-right-radius: 45px;
+    font-size: 24px;
+    text-align: center;
+    background: linear-gradient(180deg, #AB99E3 10.1%, #7963C3 49.52%, #927ED3 90.38%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* 為了 z-index 生效 */
+
+    /* 關鍵：將位移和動畫效果直接加在按鈕上 */
+    transform: translateX(-45px);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                box-shadow 0.4s ease;
+}
+
+.nav-button.active {
+    background: linear-gradient(180deg, #2D2B4D 10.1%, #756C92 49.52%, #2D2B4D 90.38%);
+    transform:  translateX(-10px);
+}
+
+.nav-button:hover {
+    transform:  translateX(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.camera-section {
+    min-width: 320px; /* 最小寬度 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 5;
+    
+}
+.wizard-container {
+    max-width: 350px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center; /* 讓內容垂直置中 (可選) */
+    padding: 20px;
+}
+#wizard-step-1 ,#wizard-step-2{
+    position: relative;
+    right: 100%;
+}
+#suggest-pose{
+    position: relative;
+    right: 20%;
+}
+.camera-container {
+    position: relative; /* 確保倒數計時層是相對於此容器定位 */
+    width: 616px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #000;
+}
+
+#countdown-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    font-size: 15vw; /* 字體大小會根據視窗寬度調整 */
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* 文字陰影，讓數字更清晰 */
+    
+    /* 預設為隱藏 */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none; /* 讓滑鼠可以穿透此圖層 */
+}
+
+/*  用於顯示倒數計時的 class */
+#countdown-overlay.show {
+    opacity: 1;
+}
+
+/* 倒數數字的動畫效果 */
+@keyframes pulse {
+    0% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+#countdown-overlay.animate {
+    /* 動畫持續 0.8 秒，無限循環 */
+    animation: pulse 0.8s ease-in-out;
+}
+
+#video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#video.filter-grayscale { filter: grayscale(100%); }
+#video.filter-sepia { filter: sepia(100%); }
+#video.filter-saturate { filter: saturate(2); }
+
+#flash-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0;                /* 初始透明 */
+  pointer-events: none;       /* 不影響互動 */
+  transition: opacity 0.2s ease-out; /* 漸變消失 */
+  z-index: 10;
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+#capture-btn, #download-btn, #clear-btn {
+    font-size: 18px;
+    padding: 12px 28px;
+    border: none;
+    background-color: #007bff;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#capture-btn:active, #download-btn:active, #clear-btn:active {
+    transform: scale(0.95);
+}
+
+#download-btn {
+    background-color: #007bff;
+}
+
+#clear-btn {
+    background-color: #dc3545; 
+}
+
+
+#photo-gallery {
+    width: 200px;
+    height: 550px;
+    margin-top: 20px;
+    display: grid;
+    gap: 30px;
+}
+
+#photo-slot {
+    background-color: #FFFFFF;
+    overflow: hidden;
+    border-radius: 8px;
+    padding: 21px 20px 38px 20px
+}
+.photo-slot{
+    background-color: #e0e0e0;
+}
+
+.photo-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 讓照片填滿格子且不變形 */
+}
+
+.setting-group {
+    margin-bottom: 30px;
+}
+
+.setting-group h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+/*  用於隱藏/顯示步驟的 class */
+.hidden {
+    display: none !important;
+}
+
+.pose-img{
+    width: 300px;
+}
+
+/* 下拉選單樣式 */
+#countdown-select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* 濾鏡和人數選擇器樣式 */
+#filter-selector, #people-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-option, .people-option{
+    padding: 10px 15px;
+    margin-top: 40px;
+    border-radius: 50px;
+    font-size: 24px;
+    background: linear-gradient(180deg, #D2E3EF 10.1%, #7C9AD3 49.52%, #99B6E4 90.38%);
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    min-width: 150px;
+}
+.filter-option:hover, .people-option:hover {
+    background: linear-gradient(180deg, #6F94DE 10.1%, #C6E4FF 49.52%, #78A6F0 90.38%);
+}
+
+.filter-option.selected ,.people-option.selected{
+    background: linear-gradient(180deg, #6F94DE 10.1%, #C6E4FF 49.52%, #78A6F0 90.38%);
+
+}
+
+#image-slider {
+  width: 300px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#image-slider img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border 0.3s ease;
+}
+
+#image-slider img:hover {
+  box-shadow: 0 0 25px 15px #a88be0;
+}
+
+#qrcode {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    display: inline-block; /* 讓 padding 生效 */
+}
+
+/* 按鈕控制區 */
+.controls {
+    margin-top: auto; /* 將按鈕推到最底部 */
+    padding-top: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+#next-step-btn, #download-btn, #clear-btn, #download-video-btn {
+    font-size: 18px;
+    padding: 14px 80px;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+#wizard-step-download{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+#next-step-btn { background: linear-gradient(180deg, #AB99E3 10.1%, #7963C3 49.52%, #927ED3 90.38%); } 
+#next-step-btn:hover, #download-video-btn:hover,#download-btn:hover ,#clear-btn:hover{ background: linear-gradient(180deg, #2D2B4D 10.1%, #7963C3 49.52%, #2D2B4D 90.38%); }
+
+
+#download-video-btn, #download-btn,#clear-btn{background: linear-gradient(180deg, #AB99E3 10.1%, #7963C3 49.52%, #927ED3 90.38%);max-width: 350px;}

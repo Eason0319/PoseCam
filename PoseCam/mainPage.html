@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/mainPage.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-button">主頁</a></li>
+                    <li><a href="mainPage.html" class="nav-button active">設計廊</a></li>
+                    <li><a href="#" class="nav-button">教學流程</a></li>
+                    <li><a href="#" class="nav-button">意見回饋</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <h1>選擇你的拍攝格式</h1>
+            <div class="layout-grid">
+                <div id="layout-a" class="layout-option" data-label="A" onclick="selectLayout(this)">
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                </div>
+
+                <div id="layout-b" class="layout-option" data-label="B" onclick="selectLayout(this)">
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                </div>
+
+                <div id="layout-c" class="layout-option" data-label="C" onclick="selectLayout(this)">
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                </div>
+
+                <div id="layout-d" class="layout-option" data-label="D" onclick="selectLayout(this)">
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                </div>
+            </div>
+
+            <div class="layout-grid-botton">
+                <div id="layout-e" class="layout-option" data-label="E" onclick="selectLayout(this)">
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                    <div class="photo-placeholder"></div>
+                </div>
+
+                <div id="layout-f" class="layout-option" data-label="F" onclick="selectLayout(this)">
+                    <div class="photo-placeholder f"></div>
+                    <div class="photo-placeholder f"></div>
+                    <div class="photo-placeholder f"></div>
+                    <div class="photo-placeholder f"></div>
+                    <div class="photo-placeholder f"></div>
+                    <div class="photo-placeholder f"></div>
+                </div>
+
+            </div>
+            <button class="next-button" id="nextBtn">下一步</button>
+        </main>
+    </div>
+
+    <script>
+        let userChoice = '';
+
+        function selectLayout(clickedElement) {
+            // 獲取所有具有 layout class 的元素
+            const allLayouts = document.querySelectorAll('.layout-option');
+
+            // 移除所有元素的 select class
+            allLayouts.forEach(layout => {
+                layout.classList.remove('selected');
+            });
+
+            // 為被點擊的元素添加 select class
+            clickedElement.classList.add('selected');
+
+            userChoice = clickedElement.getAttribute('data-label');
+            console.log('使用者選擇了版面:', userChoice); // 在開發者工具中查看，方便除錯
+        }
+        document.getElementById('nextBtn').addEventListener('click', function () {
+            if (userChoice) {
+                // 如果使用者有選擇（userChoice 不為空）
+                // 就跳轉到下一頁，並將選擇的版面作為 URL 參數傳遞
+                // 例如，如果選擇 B，網址會變成 "next-page.html?layout=B"
+                window.location.href = `takePhoto.html?layout=${userChoice}`;
+            } else {
+                // 如果沒有選擇，可以給個提示
+                alert('請先選擇一個拍攝格式！');
+            }
+        });
+    </script>
+</body>
+
+</html>
