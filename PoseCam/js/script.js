@@ -335,8 +335,8 @@ function selectPeople(clickedElement) {
         '1': './img/pose-1.jpg',
         '2': './img/pose-2.jpg',
         '3': './img/pose-3.jpg',
-        // '4': './img/pose-4.jpg',
-        // '5': './img/pose-5.jpg',
+        '4': './img/pose-4.jpg',
+        '5': './img/pose-4.jpg',
     };
 
     suggestPoseImg.src = images[personType];
